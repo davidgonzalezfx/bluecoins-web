@@ -1,29 +1,35 @@
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-import routes from './routes'
+import routes from "./routes";
 
 function App() {
   return (
     <Router>
-      <Switch>
+      <Routes>
         {routes.map((route, index) => (
           <Route
             key={index}
             path={route.path}
-            exact={route.exact}
-            render={() =>
+            element={
               route.layout ? (
-                <route.layout>{route.component && <route.component />}</route.layout>
+                <route.layout>
+                  {route.component && <route.component />}
+                </route.layout>
               ) : (
                 route.component && <route.component />
               )
             }
           ></Route>
         ))}
-        <Route path='*' render={() => <Redirect to='/' />} />
-      </Switch>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

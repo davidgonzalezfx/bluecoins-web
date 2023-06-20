@@ -1,21 +1,21 @@
-import { MainLayout } from './layouts'
-import { Home } from './views'
+import { MainLayout } from "./layouts";
+import { Home, Upload } from "./views";
 
 const routes = [
   {
-    path: '/',
-    title: 'Home',
+    path: "/",
+    title: "Home",
     exact: true,
     layout: MainLayout,
-    component: Home
+    component: Home,
   },
   {
-    path: '/upload',
-    title: 'Upload',
+    path: "/upload",
+    title: "Upload",
     exact: true,
     layout: null,
-    component: () => <div>Upload</div>
-  }
-]
+    component: Upload,
+  },
+];
 
-export default routes
+export default routes;

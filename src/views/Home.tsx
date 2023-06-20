@@ -1,10 +1,9 @@
-import React from 'react'
-import { useTitle } from '../hooks'
+import { useTitle } from "../hooks";
 
 const Home = () => {
-  const [setTitle] = useTitle('Home')
+  useTitle("Home");
 
-  return <p>Home</p>
-}
+  return <p>Home</p>;
+};
 
-export default Home
+export default Home;
