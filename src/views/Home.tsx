@@ -37,8 +37,8 @@ const Home = () => {
         {tabs.map((tab, index) => (
           <button
             key={index}
-            className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors  ${
-              index === activeTab ? 'text-blue-500' : ' text-gray-600'
+            className={`flex h-10 w-10 items-center justify-center transition-colors  ${
+              index === activeTab ? 'border-b border-blue-500 text-blue-500' : 'text-gray-600'
             }`}
             onClick={() => handleTabClick(index)}
           >
