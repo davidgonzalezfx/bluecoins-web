@@ -41,7 +41,7 @@ const Upload = () => {
                         Upload your .fydb file to get started
                       </h5>
                       <p className="leading-1 mt-2 text-base font-normal text-gray-600">
-                        Export from bluecoins settings if you have not already
+                        Export from bluecoins settings if you have not already done so.
                       </p>
                     </div>
 

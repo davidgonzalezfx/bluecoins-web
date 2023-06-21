@@ -1,4 +1,4 @@
-import { MainLayout } from "./layouts";
+import { MainLayout } from './layouts';
 import { Home, Upload } from "./views";
 
 const routes = [
