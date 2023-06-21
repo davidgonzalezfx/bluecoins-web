@@ -1,51 +1,47 @@
 const Footer = () => {
   return (
-    <div className="flex w-full flex-col items-center justify-between px-1 pb-8 pt-3 lg:px-8 xl:flex-row">
-      <h5 className="mb-4 text-center text-sm font-medium text-gray-600 sm:!mb-0 md:text-lg">
-        <p className="mb-4 text-center text-sm text-gray-600 sm:!mb-0 md:text-base">
-          ©{new Date().getFullYear()} David Gonzalez. All Rights Reserved.
-        </p>
-      </h5>
-      <div>
-        <ul className="flex flex-wrap items-center gap-3 sm:flex-nowrap md:gap-10">
-          <li>
-            <a
-              target="blank"
-              href="mailto:hello@simmmple.com"
-              className="text-base font-medium text-gray-600 hover:text-gray-600"
-            >
-              Support
-            </a>
-          </li>
-          <li>
-            <a
-              target="blank"
-              href="https://simmmple.com/licenses"
-              className="text-base font-medium text-gray-600 hover:text-gray-600"
-            >
-              License
-            </a>
-          </li>
-          <li>
-            <a
-              target="blank"
-              href="https://simmmple.com/terms-of-service"
-              className="text-base font-medium text-gray-600 hover:text-gray-600"
-            >
-              Terms of Use
-            </a>
-          </li>
-          <li>
-            <a
-              target="blank"
-              href="https://blog.horizon-ui.com/"
-              className="text-base font-medium text-gray-600 hover:text-gray-600"
-            >
-              Blog
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div className="z-[5] mx-auto flex w-full max-w-screen-sm flex-col items-center justify-between px-[20px] pb-4 lg:mb-6 lg:max-w-[100%] lg:flex-row xl:mb-2 xl:w-[1310px] xl:pb-6">
+      <p className="mb-6 text-center text-sm text-gray-600 md:text-base lg:mb-0">
+        ©{new Date().getFullYear()} David Gonzalez. All Rights Reserved.
+      </p>
+      <ul className="flex flex-wrap items-center sm:flex-nowrap">
+        <li className="mr-12">
+          <a
+            target="blank"
+            href="davidgonzalezfx.com"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
+          >
+            Github
+          </a>
+        </li>
+        <li className="mr-12">
+          <a
+            target="blank"
+            href="https://simmmple.com/licenses"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
+          >
+            License
+          </a>
+        </li>
+        <li className="mr-12">
+          <a
+            target="blank"
+            href="https://simmmple.com/terms-of-service"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
+          >
+            Terms of Use
+          </a>
+        </li>
+        <li>
+          <a
+            target="blank"
+            href="davidgonzalezfx.com"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
+          >
+            Buy me a coffee
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };
