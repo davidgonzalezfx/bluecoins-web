@@ -8,7 +8,7 @@ const Navbar = ({
   toggleSidebar: () => void
 }) => {
   return (
-    <nav className=' px-4 py-2'>
+    <nav className='mt-2 px-4 py-2'>
       <div className='flex items-center justify-between'>
         {/* Sidebar toggle */}
         <button ref={burgerRef} className='block' onClick={toggleSidebar}>

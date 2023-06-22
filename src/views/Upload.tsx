@@ -26,7 +26,13 @@ const Upload = () => {
       const db = new SQL.Database(new Uint8Array(buffer as ArrayBufferLike))
 
       if (db) {
-        console.log(db.exec('SELECT * FROM ACCOUNTSTABLE'))
+        console.log(db.exec(`
+          SELECT t.date, t.amount, i.itemName
+          FROM TRANSACTIONSTABLE t
+          JOIN ITEMTABLE i ON t.itemId = i.itemTableID
+          WHERE t.date BETWEEN '2023-06-01' AND '2023-06-30'
+          ORDER BY t.date ASC;`
+        ))
         // setDb(db)
         navigate('/')
       }

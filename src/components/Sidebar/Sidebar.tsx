@@ -1,4 +1,3 @@
-import { RefObject } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import {
@@ -11,13 +10,7 @@ import {
   MdOutlineSettings
 } from 'react-icons/md'
 
-const Sidebar = ({
-  isSidebarOpen,
-  sidebarRef
-}: {
-  isSidebarOpen: boolean
-  sidebarRef: RefObject<HTMLDivElement>
-}) => {
+const Sidebar = () => {
   const location = useLocation()
 
   const menuItems = [
@@ -31,10 +24,7 @@ const Sidebar = ({
   ]
 
   return (
-    <div
-      ref={sidebarRef}
-      className={`fixed h-screen w-80 bg-white text-gray-800 ${isSidebarOpen ? 'z-20' : 'hidden'}`}
-    >
+    <div className={`fixed z-20 h-screen w-80 bg-white text-gray-800 shadow-lg`}>
       {/* Sidebar header with logo */}
       <div className='flex h-32 flex-col  justify-end bg-blue-500 p-4 text-white'>
         <h2 className='text-xl font-bold'>Bluecoins web version</h2>
