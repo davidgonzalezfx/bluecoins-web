@@ -1,14 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
-import { Card, Footer, ToggleTheme } from '../components'
+import { Card, Footer } from '../components'
 import { MdFileUpload } from 'react-icons/md'
-
-import initSqlJs from 'sql.js'
-
-export const loadSQL = async () =>
-  await initSqlJs({
-    locateFile: (file) => `https://sql.js.org/dist/${file}`
-  })
+import { loadSQL } from '../services/database'
 
 const Upload = () => {
   const navigate = useNavigate()
@@ -26,14 +20,16 @@ const Upload = () => {
       const db = new SQL.Database(new Uint8Array(buffer as ArrayBufferLike))
 
       if (db) {
-        console.log(db.exec(`
-          SELECT t.date, t.amount, i.itemName
+        const transactions = db.exec(`
+          SELECT i.itemName, *
           FROM TRANSACTIONSTABLE t
           JOIN ITEMTABLE i ON t.itemId = i.itemTableID
           WHERE t.date BETWEEN '2023-06-01' AND '2023-06-30'
-          ORDER BY t.date ASC;`
-        ))
-        // setDb(db)
+          ORDER BY t.date ASC;
+        `)
+
+        localStorage.setItem('database', JSON.stringify(transactions))
+
         navigate('/')
       }
     }
@@ -44,7 +40,6 @@ const Upload = () => {
   return (
     <div>
       <div className='relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900'>
-        <ToggleTheme />
         <main className={`mx-auto min-h-screen`}>
           <div className='relative flex'>
             <div className='mx-auto flex min-h-full w-full flex-col justify-start pt-12 md:max-w-[75%] lg:h-screen lg:max-w-[1013px] lg:px-8 lg:pt-0 xl:h-[100vh] xl:max-w-[1383px] xl:px-0 xl:px-[70px]'>

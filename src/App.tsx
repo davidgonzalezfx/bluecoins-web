@@ -1,11 +1,7 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import routes from "./routes";
+import routes from './routes'
+import { ToggleTheme } from './components'
 
 function App() {
   return (
@@ -17,19 +13,18 @@ function App() {
             path={route.path}
             element={
               route.layout ? (
-                <route.layout>
-                  {route.component && <route.component />}
-                </route.layout>
+                <route.layout>{route.component && <route.component />}</route.layout>
               ) : (
                 route.component && <route.component />
               )
             }
           ></Route>
         ))}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
+      <ToggleTheme />
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

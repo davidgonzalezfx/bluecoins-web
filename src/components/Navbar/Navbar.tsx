@@ -14,7 +14,7 @@ const Navbar = ({
         <button ref={burgerRef} className='block' onClick={toggleSidebar}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 text-white'
+            className='h-6 w-6 '
             fill='none'
             viewBox='0 0 24 24'
             stroke='#8F8F8F'
