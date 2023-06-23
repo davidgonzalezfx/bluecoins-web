@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { MultiValue } from 'react-select'
 import {
   MdClose,
@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md'
 
 import { Select } from 'components/Select'
+import { DatabaseContext } from 'context'
 
 type Option = {
   value: string
@@ -55,10 +56,14 @@ const AddModal = ({
   const [status, setStatus] = useState<Option>()
   const [notes, setNotes] = useState('')
 
+  const { addNewTransaction } = useContext(DatabaseContext)
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Handle form submission here
     console.log('Form submitted')
+    addNewTransaction()
+    setIsAddModalOpen(false)
   }
 
   const handleCategoryChange = (selectedOption: Option) => {

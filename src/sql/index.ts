@@ -40,20 +40,24 @@ export const BUILD_TRANSACTION_TABLE = `
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
 export const CREATE_ITEM_TABLE = `
-CREATE TABLE ITEMTABLE (
-  itemTableID INTEGER PRIMARY KEY AUTOINCREMENT,
-  itemName VARCHAR(63), 
-  itemAutoFillVisibility INTEGER
-  )
-`
+  CREATE TABLE ITEMTABLE (
+    itemTableID INTEGER PRIMARY KEY AUTOINCREMENT,
+    itemName VARCHAR(63), 
+    itemAutoFillVisibility INTEGER
+    )
+  `
 
 export const BUILD_ITEM_TABLE = `INSERT INTO ITEMTABLE VALUES (?, ?, ?)`
 
 export const GET_TRANSACTIONS = `
-    SELECT i.itemName, *
-    FROM TRANSACTIONSTABLE t
-    JOIN ITEMTABLE i ON t.itemId = i.itemTableID
-    WHERE t.date BETWEEN '2023-01-01' AND '2023-06-30'
-    ORDER BY t.date ASC;`
+  SELECT i.itemName, *
+  FROM TRANSACTIONSTABLE t
+  JOIN ITEMTABLE i ON t.itemId = i.itemTableID
+  WHERE t.date BETWEEN '2023-01-01' AND '2023-06-30'
+  ORDER BY t.date ASC;`
 
 export const GET_ITEMS = `SELECT * FROM ITEMTABLE`
+
+export const ADD_TRANSACTION = `
+  INSERT INTO TRANSACTIONSTABLE ( itemID, date, amount, transactionCurrency, conversionRateNew, transactionTypeID, categoryID, accountID, notes, status, accountReference, accountPairID, uidPairID, deletedTransaction, newSplitTransactionID, transferGroupID ) 
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`

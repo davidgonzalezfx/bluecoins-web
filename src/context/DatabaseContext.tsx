@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, createContext } from 'react'
 import initSqlJs, { Database, SqlJsStatic } from 'sql.js'
-import { buildDatabase, getItems, getTransactions } from '../services/database'
+import { addTransaction, buildDatabase, getItems, getTransactions } from '../services/database'
 import { formatDate } from '../utils/formatters'
 
 type DatabaseContextType = {
@@ -12,6 +12,7 @@ type DatabaseContextType = {
   state: {
     transactions: any[]
   }
+  addNewTransaction: () => void
 }
 
 const DatabaseContext = createContext<DatabaseContextType>(null)
@@ -79,6 +80,11 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
     link.click()
   }, [database])
 
+  const addNewTransaction = useCallback(() => {
+    addTransaction(database)
+    fetchAllData(database)
+  }, [database, fetchAllData])
+
   return (
     <DatabaseContext.Provider
       value={{
@@ -87,7 +93,8 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
         setDatabase,
         createDatabase: createDatabaseFromFile,
         exportDatabase,
-        state
+        state,
+        addNewTransaction
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import { Database, SqlJsStatic } from 'sql.js'
 import {
+  ADD_TRANSACTION,
   BUILD_ITEM_TABLE,
   BUILD_TRANSACTION_TABLE,
   CREATE_ITEM_TABLE,
@@ -24,6 +25,27 @@ export const getItems = (db: Database) => {
 
   localStorage.setItem('items', JSON.stringify(items))
   return items
+}
+
+export const addTransaction = (db: Database) => {
+  db.run(ADD_TRANSACTION, [
+    49,
+    '2023-06-30',
+    100 * 100000,
+    'USD',
+    1,
+    3,
+    17,
+    5,
+    'SQL WEB',
+    0,
+    1,
+    5,
+    Math.random() * 10000,
+    6,
+    0,
+    0
+  ])
 }
 
 export const buildDatabase = (SQL: SqlJsStatic): Database => {
