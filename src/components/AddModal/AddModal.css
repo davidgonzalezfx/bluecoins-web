@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* .select-border-none {
+  } */
+  .select-border-none .select__control {
+    @apply border-2 bg-white dark:bg-[#333333];
+  }
+
+  .select-border-none .select__control--is-focused {
+    @apply shadow-none;
+  }
+
+  .select-border-none .select__menu {
+    @apply border-2  dark:bg-[#333333];
+  }
+
+  .select-border-none .select__option {
+    @apply dark:bg-[#333333];
+  }
+  /* .select-border-none .select__option--is-focused {
+    @apply bg-neutral-200 dark:bg-neutral-800;
+  } */
+
+  .select-border-none .select__indicator-separator {
+    @apply dark:text-[#F2F3F3];
+  }
+
+  .select-border-none .select__input-container,
+  .select-border-none .select__placeholder,
+  .select-border-none .select__single-value {
+    @apply dark:text-[#F2F3F3];
+  }
+}
+
+.select-border-none .select__control {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.select-border-none .select__control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.select-border-none .select__value-container {
+  padding: 0;
+}
+
+.select-border-none .select__single-value {
+  margin: 0;
+  color: inherit;
+}
+
+.select-border-none .select__menu {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.select-border-none .select__control,
+.select-border-none .select__single-value,
+.select-border-none .select__placeholder {
+  color: #2f2f2f; /* Replace with your desired color */
+}
+
+.select-border-none .select__control:focus,
+.select-border-none .select__placeholder {
+  color: #2f2f2f; /* Replace with your desired color */
+}
+
+.select-border-none .select__dropdown-indicator,
+.select-border-none .select__indicator-separator {
+  display: none;
+}
+
+.select-border-none .select__control {
+  border-right: none;
+}

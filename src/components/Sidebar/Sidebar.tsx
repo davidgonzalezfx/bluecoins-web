@@ -10,7 +10,8 @@ import {
   MdOutlineDeleteOutline,
   MdOutlineSettings,
   MdOutlineFileDownload,
-  MdLogout
+  MdLogout,
+  MdAddCircleOutline
 } from 'react-icons/md'
 import { DatabaseContext } from '../../context'
 
@@ -29,7 +30,11 @@ const menuItems = [
   { icon: <MdOutlineSettings />, title: 'Settings', path: '/settings', enabled: false }
 ]
 
-const Sidebar = () => {
+const Sidebar = ({
+  setIsAddModalOpen
+}: {
+  setIsAddModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { exportDatabase } = useContext(DatabaseContext)
@@ -86,6 +91,13 @@ const Sidebar = () => {
       <div className='mx-auto w-11/12 border-t border-gray-200 dark:border-darkGray'></div>
 
       <ul className='py-4'>
+        <button
+          className='flex items-center gap-4 px-4 py-2 dark:text-darkGray'
+          onClick={() => setIsAddModalOpen(true)}
+        >
+          <MdAddCircleOutline />
+          <span>Add new transaction</span>
+        </button>
         <button
           className='flex items-center gap-4 px-4 py-2 dark:text-darkGray'
           onClick={handleExport}
