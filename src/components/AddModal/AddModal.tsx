@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Select, { MultiValue } from 'react-select'
+import { MultiValue } from 'react-select'
 import {
   MdClose,
   MdOutlineAccountBalance,
@@ -8,7 +8,7 @@ import {
   MdPlaylistAddCheck
 } from 'react-icons/md'
 
-import './AddModal.css'
+import { Select } from 'components/Select'
 
 type Option = {
   value: string
@@ -147,12 +147,7 @@ const AddModal = ({
                 value={category}
                 options={categoryOptions}
                 onChange={handleCategoryChange}
-                getOptionLabel={(option) => option.label}
-                getOptionValue={(option) => option.value}
                 placeholder='Category'
-                className='select-border-none dark:bg-[#333333]'
-                classNamePrefix='select'
-                isSearchable={false}
               />
             </div>
           </div>
@@ -166,12 +161,7 @@ const AddModal = ({
                 value={account}
                 options={accountOptions}
                 onChange={handleAccountChange}
-                getOptionLabel={(option) => option.label}
-                getOptionValue={(option) => option.value}
                 placeholder='Account'
-                className='select-border-none'
-                classNamePrefix='select'
-                isSearchable={false}
               />
             </div>
           </div>
@@ -186,9 +176,6 @@ const AddModal = ({
                 value={labels}
                 onChange={handleLabelChange}
                 placeholder='Labels'
-                className='select-border-none'
-                classNamePrefix='select'
-                isSearchable={false}
               />
             </div>
           </div>
@@ -201,12 +188,7 @@ const AddModal = ({
                 value={status}
                 options={statusOptions}
                 onChange={handleStatusChange}
-                getOptionLabel={(option) => option.label}
-                getOptionValue={(option) => option.value}
                 placeholder='Status'
-                className='select-border-none'
-                classNamePrefix='select'
-                isSearchable={false}
               />
             </div>
           </div>
