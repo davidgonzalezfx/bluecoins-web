@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, createContext } from 'react'
 import initSqlJs, { Database, SqlJsStatic } from 'sql.js'
-import { buildDatabase, getTransactions } from '../services/database'
+import { buildDatabase, getItems, getTransactions } from '../services/database'
 import { formatDate } from '../utils/formatters'
 
 type DatabaseContextType = {
@@ -21,33 +21,34 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   const [SQL, setSQL] = useState<SqlJsStatic | null>(null)
   const [state, setState] = useState({ transactions: [] })
 
+  const fetchAllData = useCallback((db: Database) => {
+    const updatedTransactions = getTransactions(db)
+    getItems(db)
+
+    setState({ transactions: updatedTransactions })
+  }, [])
+
   const init = useCallback(async () => {
     const sqlJs = await initSqlJs({
       locateFile: (file) => `https://sql.js.org/dist/${file}`
     })
 
     setSQL(sqlJs)
-  }, [])
+
+    if (window.location.pathname === '/' && database === null) {
+      const db = buildDatabase(sqlJs)
+      setDatabase(db)
+
+      fetchAllData(db)
+    }
+  }, [database, fetchAllData])
 
   useEffect(() => {
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    // if user is in / route
-    if (window.location.pathname === '/') {
-      let dbInstance = database
-      if (dbInstance === null) {
-        dbInstance = buildDatabase(SQL)
-      }
-      console.log('Database updated')
-      const updatedTransactions = getTransactions(dbInstance)
-      setState({ transactions: updatedTransactions })
-    }
-  }, [SQL, database])
-
-  const createDatabase = useCallback(
+  const createDatabaseFromFile = useCallback(
     async (file: ArrayBufferLike): Promise<void> => {
       if (!SQL) return Promise.reject(new Error('SQL.js not loaded'))
 
@@ -56,24 +57,18 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
       if (fileDatabase) {
         setDatabase(fileDatabase)
 
-        const updatedTransactions = getTransactions(fileDatabase)
-        setState({ transactions: updatedTransactions })
+        fetchAllData(fileDatabase)
 
         return Promise.resolve()
       } else {
         return Promise.reject(new Error('Database not created'))
       }
     },
-    [SQL]
+    [SQL, fetchAllData]
   )
 
   const exportDatabase = useCallback(() => {
-    let dbInstance = database
-    if (dbInstance === null) {
-      dbInstance = buildDatabase(SQL)
-    }
-
-    const data = dbInstance.export()
+    const data = database.export()
     const buffer = new Blob([data], { type: 'application/octet-stream' })
 
     const db_name = `Bluecoins_${formatDate(new Date())}.fydb`.replace(' ', '_')
@@ -82,7 +77,7 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
     link.href = window.URL.createObjectURL(buffer)
     link.download = db_name
     link.click()
-  }, [SQL, database])
+  }, [database])
 
   return (
     <DatabaseContext.Provider
@@ -90,7 +85,7 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
         SQL,
         database,
         setDatabase,
-        createDatabase,
+        createDatabase: createDatabaseFromFile,
         exportDatabase,
         state
       }}

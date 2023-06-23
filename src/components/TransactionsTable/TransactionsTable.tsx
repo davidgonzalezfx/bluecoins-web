@@ -5,8 +5,6 @@ import { formatCurrency } from '../../utils/formatters'
 import { DatabaseContext } from '../../context'
 
 const TransactionsList = () => {
-  // const database = localStorage.getItem('database')
-  // const transactions = JSON.parse(database as string) || []
   const { state } = useContext(DatabaseContext)
   const { transactions } = state
 

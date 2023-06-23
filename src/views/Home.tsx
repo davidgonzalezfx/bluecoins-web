@@ -31,7 +31,7 @@ const Home = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const jsonDatabase = localStorage.getItem('database')
+    const jsonDatabase = localStorage.getItem('transactions')
 
     if (!jsonDatabase) {
       navigate('/upload')
