@@ -1,9 +1,14 @@
 // @ts-nocheck
+import { useContext } from 'react'
+
 import { formatCurrency } from '../../utils/formatters'
+import { DatabaseContext } from '../../context'
 
 const TransactionsList = () => {
-  const database = localStorage.getItem('database')
-  const transactions = JSON.parse(database as string) || []
+  // const database = localStorage.getItem('database')
+  // const transactions = JSON.parse(database as string) || []
+  const { state } = useContext(DatabaseContext)
+  const { transactions } = state
 
   const groupedTransactions = transactions[0]?.values?.reverse().reduce((result, transaction) => {
     const date = transaction[6]

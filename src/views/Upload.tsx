@@ -1,10 +1,12 @@
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { MdFileUpload } from 'react-icons/md'
 
 import { Card, Footer } from '../components'
-import { MdFileUpload } from 'react-icons/md'
-import { loadSQL } from '../services/database'
+import { DatabaseContext } from '../context'
 
 const Upload = () => {
+  const { SQL, createDatabase } = useContext(DatabaseContext)
   const navigate = useNavigate()
 
   const handleFileChange = async (event: React.FormEvent<HTMLInputElement>) => {
@@ -14,24 +16,12 @@ const Upload = () => {
 
     reader.onload = async (event: ProgressEvent<FileReader>) => {
       const buffer = event.target?.result
-      const SQL = await loadSQL()
+
       if (!SQL || !buffer) return
 
-      const db = new SQL.Database(new Uint8Array(buffer as ArrayBufferLike))
+      await createDatabase(buffer as ArrayBufferLike)
 
-      if (db) {
-        const transactions = db.exec(`
-          SELECT i.itemName, *
-          FROM TRANSACTIONSTABLE t
-          JOIN ITEMTABLE i ON t.itemId = i.itemTableID
-          WHERE t.date BETWEEN '2023-06-01' AND '2023-06-30'
-          ORDER BY t.date ASC;
-        `)
-
-        localStorage.setItem('database', JSON.stringify(transactions))
-
-        navigate('/')
-      }
+      navigate('/')
     }
 
     reader.readAsArrayBuffer(file as Blob)

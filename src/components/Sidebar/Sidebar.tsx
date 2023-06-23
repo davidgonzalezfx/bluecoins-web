@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 
 import {
@@ -11,6 +12,7 @@ import {
   MdOutlineFileDownload,
   MdLogout
 } from 'react-icons/md'
+import { DatabaseContext } from '../../context'
 
 const menuItems = [
   { icon: <MdOutlineDashboard />, title: 'Main Dashboard', path: '/', enabled: true },
@@ -30,8 +32,9 @@ const menuItems = [
 const Sidebar = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { exportDatabase } = useContext(DatabaseContext)
 
-  const handleExport = async () => {}
+  const handleExport = () => exportDatabase()
 
   const handleExit = () => {
     localStorage.removeItem('database')
