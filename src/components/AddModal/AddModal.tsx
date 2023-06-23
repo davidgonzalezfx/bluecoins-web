@@ -17,13 +17,13 @@ type Option = {
 }
 
 const categoryOptions: Option[] = [
-  { value: 'chocolate', label: 'Food' },
+  { value: 'Electricity', label: 'Food' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ]
 
 const accountOptions: Option[] = [
-  { value: 'chocolate', label: 'Bank' },
+  { value: 'Savings', label: 'Bank' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ]
@@ -60,9 +60,19 @@ const AddModal = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted')
-    addNewTransaction()
+
+    const newTransaction = {
+      itemName,
+      date: `${date} ${time}`,
+      amount,
+      category: category.value,
+      account: account.value,
+      labels: labels.map((label) => label.value),
+      status: status?.value,
+      notes
+    }
+
+    addNewTransaction(newTransaction)
     setIsAddModalOpen(false)
   }
 

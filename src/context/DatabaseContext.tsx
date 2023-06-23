@@ -12,7 +12,7 @@ type DatabaseContextType = {
   state: {
     transactions: any[]
   }
-  addNewTransaction: () => void
+  addNewTransaction: (newTransaction: any) => void
 }
 
 const DatabaseContext = createContext<DatabaseContextType>(null)
@@ -80,10 +80,13 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
     link.click()
   }, [database])
 
-  const addNewTransaction = useCallback(() => {
-    addTransaction(database)
-    fetchAllData(database)
-  }, [database, fetchAllData])
+  const addNewTransaction = useCallback(
+    (newTransaction: any) => {
+      addTransaction(database, newTransaction)
+      fetchAllData(database)
+    },
+    [database, fetchAllData]
+  )
 
   return (
     <DatabaseContext.Provider

@@ -27,24 +27,40 @@ export const getItems = (db: Database) => {
   return items
 }
 
-export const addTransaction = (db: Database) => {
+export const addTransaction = (db: Database, newTransaction: any) => {
+  console.log(newTransaction)
+
+  console.log('amount', newTransaction.amout * 100000)
+
+  const itemID = db.exec(
+    `SELECT itemTableId FROM ITEMTABLE WHERE itemName = "${newTransaction.itemName}"`
+  )[0].values[0][0]
+
+  const categoryID = db.exec(
+    `SELECT categoryTableID FROM CHILDCATEGORYTABLE WHERE childCategoryName = "${newTransaction.category}"`
+  )[0].values[0][0]
+
+  const accountID = db.exec(
+    `SELECT accountsTableID FROM ACCOUNTSTABLE WHERE accountName = "${newTransaction.account}"`
+  )[0].values[0][0]
+
   db.run(ADD_TRANSACTION, [
-    49,
+    itemID,
     '2023-06-30',
-    100 * 100000,
-    'USD',
-    1,
-    3,
-    17,
-    5,
-    'SQL WEB',
-    0,
-    1,
-    5,
-    Math.random() * 10000,
-    6,
-    0,
-    0
+    '-' + newTransaction.amount + '000000',
+    'USD', // transactionCurrency
+    1, // conversionRateNew
+    3, // transactionTypeID
+    categoryID,
+    accountID,
+    'Recorded from bluecoins web',
+    0, // status
+    1, // accountReference
+    accountID, // accountPairID
+    Math.random() * 10000, // uidPairID
+    6, // deletedTransaction
+    0, // newSplitTransactionID
+    0 // transferGroupID
   ])
 }
 
