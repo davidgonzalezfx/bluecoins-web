@@ -47,7 +47,7 @@ export const addTransaction = (db: Database, newTransaction: any) => {
 
   db.run(ADD_TRANSACTION, [
     itemID,
-    newTransaction.date ?? new Date().toISOString(),
+    newTransaction.date,
     '-' + newTransaction.amount + '000000',
     'USD', // transactionCurrency
     1, // conversionRateNew

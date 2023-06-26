@@ -17,13 +17,13 @@ type Option = {
 }
 
 const categoryOptions: Option[] = [
-  { value: 'Electricity', label: 'Food' },
+  { value: 'Food', label: 'Food' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ]
 
 const accountOptions: Option[] = [
-  { value: 'Savings', label: 'Bank' },
+  { value: 'Bank', label: 'Bank' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ]
@@ -63,7 +63,7 @@ const AddModal = ({
 
     const newTransaction = {
       itemName,
-      date: `${date} ${time}`,
+      date: date && time ? `${date} ${time}` : new Date().toISOString(),
       amount,
       category: category.value,
       account: account.value,
