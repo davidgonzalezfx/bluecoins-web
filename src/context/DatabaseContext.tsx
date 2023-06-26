@@ -49,6 +49,21 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+
+      return ''
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [])
+
   const createDatabaseFromFile = useCallback(
     async (file: ArrayBufferLike): Promise<void> => {
       if (!SQL) return Promise.reject(new Error('SQL.js not loaded'))
