@@ -8,8 +8,8 @@ const TransactionsList = () => {
   const { state } = useContext(DatabaseContext)
   const { transactions } = state
 
-  const groupedTransactions = transactions[0]?.values?.reverse().reduce((result, transaction) => {
-    const date = transaction[6]
+  const groupedTransactions = transactions?.reduce((result, transaction) => {
+    const date = transaction.date
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'long',
@@ -23,8 +23,6 @@ const TransactionsList = () => {
     result[formattedDate].push(transaction)
     return result
   }, {})
-
-  transactions[0]?.values.reverse()
 
   const groupedTransactionsList = Object.entries(groupedTransactions || {}).map(
     ([date, transactions]) => ({
@@ -48,32 +46,32 @@ const TransactionsList = () => {
               <p className='font-semibold'>
                 Total:{' '}
                 {formatCurrency(
-                  transactions.reduce((total, transaction) => total + transaction[3], 0)
+                  transactions.reduce((total, transaction) => total + transaction.amount, 0)
                 )}
               </p>
             </div>
           </div>
           <div className='px-4 py-2'>
             {transactions.map((transaction) => (
-              <div key={transaction[0]} className='flex justify-between py-2'>
+              <div key={transaction.transactionsTableID} className='flex justify-between py-2'>
                 <div className='flex items-center gap-2'>
                   {/* Replace with appropriate transaction icon */}
                   <div
                     className={`h-6 w-6 rounded-full  ${
-                      transaction[3] > 0 ? 'bg-green-600' : 'bg-red-400'
+                      transaction.amount > 0 ? 'bg-green-600' : 'bg-red-400'
                     } `}
                   ></div>
                   <div>
-                    <p>{transaction[0]}</p>
-                    <p className='text-xs text-gray-500'>Category</p>
+                    <p>{transaction.itemName}</p>
+                    <p className='text-xs text-gray-500'>{transaction.childCategoryName}</p>
                   </div>
                 </div>
                 <div className='flex flex-col items-end font-medium	'>
-                  <p className={`${transaction[3] > 0 ? 'text-green-700' : 'text-red-600'}`}>
-                    {formatCurrency(transaction[3])}
+                  <p className={`${transaction.amount > 0 ? 'text-green-700' : 'text-red-600'}`}>
+                    {formatCurrency(transaction.amount)}
                   </p>
                   {/* Replace with appropriate account and balance */}
-                  {/* <p className='ml-2 text-xs text-gray-500'>Account - Balance</p> */}
+                  <p className='ml-2 text-xs text-gray-500'>{transaction.accountName}</p>
                 </div>
               </div>
             ))}

@@ -8,6 +8,7 @@ import {
   GET_ITEMS,
   GET_TRANSACTIONS
 } from '../sql'
+import { ItemsMap, TransactionsMap } from 'utils/mappers'
 
 export const getTransactions = (db: Database) => {
   localStorage.removeItem('transactions')
@@ -16,7 +17,7 @@ export const getTransactions = (db: Database) => {
 
   localStorage.setItem('transactions', JSON.stringify(transactions))
 
-  return transactions
+  return TransactionsMap(transactions)
 }
 
 export const getItems = (db: Database) => {
@@ -24,7 +25,7 @@ export const getItems = (db: Database) => {
   const items = db.exec(GET_ITEMS)
 
   localStorage.setItem('items', JSON.stringify(items))
-  return items
+  return ItemsMap(items)
 }
 
 export const addTransaction = (db: Database, newTransaction: any) => {
@@ -46,7 +47,7 @@ export const addTransaction = (db: Database, newTransaction: any) => {
 
   db.run(ADD_TRANSACTION, [
     itemID,
-    '2023-06-30',
+    newTransaction.date ?? new Date().toISOString(),
     '-' + newTransaction.amount + '000000',
     'USD', // transactionCurrency
     1, // conversionRateNew

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, createContext } from 'react'
 import initSqlJs, { Database, SqlJsStatic } from 'sql.js'
-import { addTransaction, buildDatabase, getItems, getTransactions } from '../services/database'
+import { addTransaction, getItems, getTransactions } from '../services/database'
 import { formatDate } from '../utils/formatters'
 
 type DatabaseContextType = {
@@ -37,12 +37,16 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
     setSQL(sqlJs)
 
     if (window.location.pathname === '/' && database === null) {
-      const db = buildDatabase(sqlJs)
-      setDatabase(db)
-
-      fetchAllData(db)
+      localStorage.clear()
+      window.location.reload()
     }
-  }, [database, fetchAllData])
+    // if (window.location.pathname === '/' && database === null) {
+    //   const db = buildDatabase(sqlJs)
+    //   setDatabase(db)
+
+    //   fetchAllData(db)
+    // }
+  }, [database])
 
   useEffect(() => {
     init()
@@ -57,7 +61,9 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
       return ''
     }
 
-    window.addEventListener('beforeunload', handleBeforeUnload)
+    if (!!localStorage.getItem('transactions')) {
+      window.addEventListener('beforeunload', handleBeforeUnload)
+    }
 
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload)

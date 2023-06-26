@@ -50,11 +50,13 @@ export const CREATE_ITEM_TABLE = `
 export const BUILD_ITEM_TABLE = `INSERT INTO ITEMTABLE VALUES (?, ?, ?)`
 
 export const GET_TRANSACTIONS = `
-  SELECT i.itemName, *
+  SELECT *
   FROM TRANSACTIONSTABLE t
   JOIN ITEMTABLE i ON t.itemId = i.itemTableID
+  JOIN ACCOUNTSTABLE a ON t.accountID = a.accountsTableID
+  JOIN CHILDCATEGORYTABLE c ON t.categoryID = c.categoryTableID
   WHERE t.date BETWEEN '2023-01-01' AND '2023-06-30'
-  ORDER BY t.date ASC;`
+  ORDER BY t.date DESC;`
 
 export const GET_ITEMS = `SELECT * FROM ITEMTABLE`
 
